@@ -1,3 +1,4 @@
+import { TopMenu } from "@/components";
 
 export default function Layout({
   children
@@ -5,7 +6,8 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-slate-600">
+    <div className="min-h-screen">
+      <TopMenu />
       {children}
     </div>
   );
