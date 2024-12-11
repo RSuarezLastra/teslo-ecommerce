@@ -1,4 +1,4 @@
-import { TopMenu } from "@/components";
+import { Sidebar, TopMenu } from "@/components";
 
 export default function Layout({
   children
@@ -9,6 +9,7 @@ export default function Layout({
     <div className="min-h-screen">
 
       <TopMenu />
+      <Sidebar />
 
       <div className="px-1 sm:px-10">
         {children}
