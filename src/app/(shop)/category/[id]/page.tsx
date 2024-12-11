@@ -16,7 +16,7 @@ export default async function ({ params }: Props) {
 
   return (
     <div>
-      <h1>Category Page {id}</h1>
+      <h2>Category Page {id}</h2>
     </div>
   );
 }

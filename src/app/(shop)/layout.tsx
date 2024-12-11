@@ -7,8 +7,12 @@ export default function Layout({
 }) {
   return (
     <div className="min-h-screen">
+
       <TopMenu />
-      {children}
+
+      <div className="px-1 sm:px-10">
+        {children}
+      </div>
     </div>
   );
 }
