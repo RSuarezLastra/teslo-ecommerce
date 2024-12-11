@@ -1,6 +1,20 @@
 'use client'
 
-import { IoCloseOutline, IoSearchOutline } from "react-icons/io5"
+import Link from "next/link"
+import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPersonOutline, IoSearchOutline, IoShirtOutline, IoTicketOutline } from "react-icons/io5"
+import { SidebarItem } from "./SidebarItem"
+
+const navLinks = [
+  { title: 'Perfil', path: '/', icon: <IoPersonOutline size={20} /> },
+  { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
+  { title: 'Ingresar', path: '/', icon: <IoLogInOutline size={20} /> },
+  { title: 'Salir', path: '/', icon: <IoLogOutOutline size={20} /> },
+]
+const adminNavLinks = [
+  { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },
+  { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
+  { title: 'Usuarios', path: '/', icon: <IoPersonOutline size={20} /> },
+]
 
 
 export const Sidebar = () => {
@@ -27,6 +41,7 @@ export const Sidebar = () => {
             size={20}
             className="absolute top-2 left-2"
           />
+
           {/* Input search */}
           <input
             type="text"
@@ -34,6 +49,26 @@ export const Sidebar = () => {
             className="w-full bg-gray-50 pl-10 py-1 pr-10 rounded text-xl border-b-2 border-gray-200 focus:outline-none focus:border-blue-500"
           />
         </div>
+
+        {/* Menú */}
+
+        {
+          navLinks.map(item => (
+            <SidebarItem key={item.title} {...item} />
+          ))
+        }
+
+        <div className="w-full h-px bg-gray-200 my-10"/>
+
+        {/* Admin Menu */}
+
+        {
+          adminNavLinks.map(item => (
+            <SidebarItem key={item.title} {...item} />
+          ))
+        }
+
+
 
       </nav>
 
