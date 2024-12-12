@@ -8,3 +8,7 @@ export * from './ui/sidebar/Sidebar';
 //? products
 
 export * from './products/product-grid/ProductGrid';
+
+//? product
+
+export * from './product/size-selector/SizeSelector';
