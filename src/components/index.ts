@@ -12,3 +12,4 @@ export * from './products/product-grid/ProductGrid';
 //? product
 
 export * from './product/size-selector/SizeSelector';
+export * from './product/quantity-selector/QuantitySelector';

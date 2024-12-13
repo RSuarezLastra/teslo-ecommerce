@@ -1,4 +1,4 @@
-import { SizeSelector } from "@/components";
+import { QuantitySelector, SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 
@@ -34,6 +34,8 @@ export default async function ({ params }: Props) {
           selectedSize={product?.sizes[0]}
           availableSizes={product?.sizes}
         />
+
+        <QuantitySelector quantity={1} />
 
         <button className="btn-primary my-5">
           Agregar al carrito
