@@ -1,4 +1,4 @@
-import { QuantitySelector, SizeSelector } from "@/components";
+import { ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 
@@ -19,7 +19,10 @@ export default async function ({ params }: Props) {
 
       {/* SlidesShow */}
       <div className="col-span-1 md:col-span-2">
-        <h1>Hola mundo</h1>
+        <ProductSlideShow
+          images={product!.images}
+          title={product!.title}
+        />
       </div>
 
       {/* Detalles */}
@@ -31,8 +34,8 @@ export default async function ({ params }: Props) {
 
         {/* Selector de Tallas */}
         <SizeSelector
-          selectedSize={product?.sizes[0]}
-          availableSizes={product?.sizes}
+          selectedSize={product!.sizes[0]}
+          availableSizes={product!.sizes}
         />
 
         <QuantitySelector quantity={1} />
