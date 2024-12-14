@@ -11,7 +11,7 @@ export default function Layout({
       <TopMenu />
       <Sidebar />
 
-      <div className="px-1 sm:px-10">
+      <div className="px-0 md:px-10">
         {children}
       </div>
     </div>

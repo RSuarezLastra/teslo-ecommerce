@@ -1,4 +1,4 @@
-import { ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
+import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
 import { initialData } from "@/seed/seed";
 
@@ -22,6 +22,13 @@ export default async function ({ params }: Props) {
         <ProductSlideShow
           images={product!.images}
           title={product!.title}
+          className="hidden md:block"
+        />
+
+        <ProductMobileSlideShow
+          images={product!.images}
+          title={product!.title}
+          className="block md:hidden"
         />
       </div>
 
