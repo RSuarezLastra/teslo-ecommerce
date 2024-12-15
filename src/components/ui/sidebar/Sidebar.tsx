@@ -9,7 +9,7 @@ import clsx from "clsx"
 const navLinks = [
   { title: 'Perfil', path: '/', icon: <IoPersonOutline size={20} /> },
   { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
-  { title: 'Ingresar', path: '/', icon: <IoLogInOutline size={20} /> },
+  { title: 'Ingresar', path: '/auth/login', icon: <IoLogInOutline size={20} /> },
   { title: 'Salir', path: '/', icon: <IoLogOutOutline size={20} /> },
 ]
 const adminNavLinks = [

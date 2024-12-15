@@ -5,8 +5,12 @@ export default function Layout({
   children: React.ReactNode;
 }) {
   return (
-    <div className="min-h-screen bg-red-800">
-      {children}
-    </div>
+    <main className="flex justify-center">
+      
+      <div className="w-full sm:w-[350px]">
+        {children}
+      </div>
+      
+    </main>
   );
 }
