@@ -1,4 +1,4 @@
-import { Sidebar, TopMenu } from "@/components";
+import { Footer, Sidebar, TopMenu } from "@/components";
 
 export default function Layout({
   children
@@ -14,6 +14,8 @@ export default function Layout({
       <div className="px-0 md:px-10">
         {children}
       </div>
+
+      <Footer />
     </div>
   );
 }
