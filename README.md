@@ -9,7 +9,8 @@ E-commerce Teslo, clon de la tienda de tesla.
 3. Instalar dependencias ```npm install```
 4. Levantar la base de datos  ```docker compose up -d```
 5. Ejecutar las migraciones  ```npx prisma migrate dev```
-6. Correr el proyecto ```npm run dev```
+6. Ejecutar nuestro seed  ```npm run seed```
+7. Correr el proyecto ```npm run dev```
 
 
 
