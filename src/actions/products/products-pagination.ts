@@ -30,8 +30,13 @@ export const getPaginatedProductsWithImages = async ({
       },
     });
 
+    const totalCount = await prisma.product.count({});
+    const totalPages = Math.ceil(totalCount / take);
 
+  
     return {
+      currentPage: page,
+      totalPages,
       products: products.map(product => ({
         ...product,
         images: product.ProductImage.map(image => image.url)
