@@ -1,13 +1,11 @@
 import { getPaginatedProductsWithImages } from "@/actions";
 import { Pagination, ProductGrid, Title } from "@/components";
-import { Category } from "@/interfaces";
-import { initialData } from "@/seed/seed";
 import { Gender } from "@prisma/client";
-import { notFound, redirect } from "next/navigation";
+import { redirect } from "next/navigation";
 
 interface Props {
   params: {
-    gender: Gender;
+    gender: string;
 
   },
   searchParams: {
@@ -22,22 +20,22 @@ export default async function ({ params, searchParams }: Props) {
   const { page } = await searchParams;
 
   const pageNumber = page ? parseInt(page) : 1
-  const { products, totalPages } = await getPaginatedProductsWithImages({ gender, page: pageNumber });
+  const { products, totalPages } = await getPaginatedProductsWithImages({
+    gender: gender as Gender,
+    page: pageNumber
+  });
 
   if (products.length === 0) {
     redirect(`/gender/${gender}`);
   }
 
-  const label: Record<Category, string> = {
+  const label: Record<string, string> = {
     "men": "Hombres",
-    "women": "Mujeres", 
+    "women": "Mujeres",
     "kid": "Niños",
     "unisex": "todos"
   }
 
-  // if(id === "kids"){
-  //   notFound();
-  // }
 
   return (
     <div>
