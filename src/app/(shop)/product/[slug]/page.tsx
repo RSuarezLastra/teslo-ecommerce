@@ -1,6 +1,10 @@
+export const revalidate = 604800;
+
+import { getProductBySlug } from "@/actions";
 import { ProductMobileSlideShow, ProductSlideShow, QuantitySelector, SizeSelector } from "@/components";
 import { titleFont } from "@/config/fonts";
-import { initialData } from "@/seed/seed";
+import { notFound } from "next/navigation";
+
 
 interface Props {
   params: {
@@ -12,7 +16,11 @@ export default async function ({ params }: Props) {
 
   const { slug } = await params;
 
-  const product = initialData.products.find(product => product.slug === slug);
+  const product = await getProductBySlug(slug);
+
+  if(!product){
+    notFound();
+  }
 
   return (
     <div className="mt-5 mb-20 grid grid-cols-1 md:grid-cols-3 gap-3">
