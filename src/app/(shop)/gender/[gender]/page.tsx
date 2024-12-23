@@ -17,12 +17,13 @@ interface Props {
 export default async function ({ params, searchParams }: Props) {
 
   const { gender } = await params;
+  const { page } = await searchParams;
 
-  const page = searchParams?.page ? parseInt(searchParams.page) : 1;
-  
+  const pageNumber = page ? parseInt(page) : 1;
+
   const { products, totalPages } = await getPaginatedProductsWithImages({
     gender: gender as Gender,
-    page: page
+    page: pageNumber
   });
 
   if (products.length === 0) {
