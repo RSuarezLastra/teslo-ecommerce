@@ -27,6 +27,7 @@ export const getProductBySlug = async (slug: string) => {
     }
 
   } catch (error) {
+    console.error('Error al obtener el producto:', error); 
     throw new Error('No se pudo cargar el producto');
   }
 }

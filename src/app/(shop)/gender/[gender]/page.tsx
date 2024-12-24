@@ -4,13 +4,12 @@ import { Gender } from "@prisma/client";
 import { redirect } from "next/navigation";
 
 interface Props {
-  params: {
+  params: Promise<{
     gender: string;
-
-  },
-  searchParams: {
+  }>,
+  searchParams: Promise<{
     page?: string;
-  }
+  }>
 }
 
 
