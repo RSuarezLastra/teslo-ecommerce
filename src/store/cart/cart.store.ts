@@ -1,5 +1,6 @@
 import { CartProduct } from '@/interfaces'
 import { create } from 'zustand'
+import { persist } from 'zustand/middleware';
 
 interface State {
   cart: CartProduct[];
@@ -8,33 +9,38 @@ interface State {
 }
 
 export const useCartStore = create<State>()(
-  (set, get) => ({
-    cart: [],
+  persist(
+    (set, get) => ({
+      cart: [],
 
-    addProductToCart: (product: CartProduct) => {
+      addProductToCart: (product: CartProduct) => {
 
-      const { cart } = get();
-      console.log(cart);
-      
-      const isProductInCart = cart.some(
-        (item: CartProduct) => (item.id === product.id && item.size === product.size)
-      );
+        const { cart } = get();
 
-      if (!isProductInCart) {
-        set({ cart: [...cart, product] });
-        return;
-      }
+        const isProductInCart = cart.some(
+          (item: CartProduct) => (item.id === product.id && item.size === product.size)
+        );
 
-      const updatedCart = cart.map((item: CartProduct) => {
-        if (item.id === product.id && item.size === product.size) {
-          return { ...item, quantity: item.quantity + 1 };
+        if (!isProductInCart) {
+          set({ cart: [...cart, product] });
+          return;
         }
 
-        return item;
-      });
+        const updatedCart = cart.map((item: CartProduct) => {
+          if (item.id === product.id && item.size === product.size) {
+            return { ...item, quantity: item.quantity + 1 };
+          }
 
-      set({ cart: updatedCart });
+          return item;
+        });
 
+        set({ cart: updatedCart });
+
+      }
+    }),
+    {
+      name: 'shopping-cart'
     }
-  })
+  )
+
 );
