@@ -1,6 +1,5 @@
 import { Title } from "@/components";
 import Link from "next/link";
-import { redirect } from "next/navigation";
 import { ProductsInCart } from "./components/ProductsInCart";
 import { OrderSummary } from "./components/OrderSummary";
 
@@ -8,7 +7,6 @@ import { OrderSummary } from "./components/OrderSummary";
 
 export default function () {
 
-  // redirect('/empty');
 
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-2">
