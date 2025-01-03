@@ -3,7 +3,7 @@ import Link from 'next/link';
 
 export default function () {
   return (
-    <div className="flex flex-col min-h-screen pt-32 sm:pt-52">
+    <div className="flex flex-col min-h-screen pt-24">
 
       <h1 className={ `${ titleFont.className } text-4xl mb-5` }>Nueva cuenta</h1>
 
