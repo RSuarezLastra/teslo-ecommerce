@@ -3,6 +3,8 @@
 import Link from "next/link"
 import { useActionState } from 'react';
 import { authenticate } from "@/actions";
+import clsx from "clsx";
+import { BsExclamationCircle } from "react-icons/bs";
 
 
 export const LoginForm = () => {
@@ -11,7 +13,7 @@ export const LoginForm = () => {
     authenticate,
     undefined,
   );
-  console.log(errorMessage, formAction, isPending);
+  console.log(isPending);
 
   return (
     <form action={formAction} className="flex flex-col">
@@ -31,9 +33,20 @@ export const LoginForm = () => {
         name="password"
       />
 
+      {errorMessage && (
+        <div className="flex items-center my-2 gap-2">
+          <BsExclamationCircle className="h-5 w-5 text-red-500" />
+          <p className="text-sm text-red-500">{errorMessage}</p>
+        </div>
+      )}
+
       <button
         type="submit"
-        className="btn-primary">
+        className={clsx({
+          "btn-primary": !isPending,
+          "btn-disabled": isPending,
+        })}
+        disabled={isPending}>
         Ingresar
       </button>
 
