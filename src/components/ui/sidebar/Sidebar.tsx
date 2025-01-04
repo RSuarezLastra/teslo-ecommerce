@@ -5,24 +5,44 @@ import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPersonOutline, IoSea
 import { SidebarItem } from "./SidebarItem"
 import { useUiStore } from "@/store"
 import clsx from "clsx"
+import { logout } from "@/actions/auth/logout"
 
-const navLinks = [
-  { title: 'Perfil', path: '/profile', icon: <IoPersonOutline size={20} /> },
-  { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
-  { title: 'Ingresar', path: '/auth/login', icon: <IoLogInOutline size={20} /> },
-  { title: 'Salir', path: '/', icon: <IoLogOutOutline size={20} /> },
-]
-const adminNavLinks = [
-  { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },
-  { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
-  { title: 'Usuarios', path: '/', icon: <IoPersonOutline size={20} /> },
-]
 
 
 export const Sidebar = () => {
 
   const isSideMenuOpen = useUiStore(state => state.isSideMenuOpen);
   const closeSideMenu = useUiStore(state => state.closeSideMenu);
+
+  const navLinks = [
+    {
+      title: 'Perfil',
+      path: '/profile',
+      icon: <IoPersonOutline size={20} />,
+      onClick: closeSideMenu
+    },
+    {
+      title: 'Ordenes',
+      path: '/',
+      icon: <IoTicketOutline size={20} />
+    },
+    {
+      title: 'Ingresar',
+      path: '/auth/login',
+      icon: <IoLogInOutline size={20} />
+    },
+    // {
+    //   title: 'Salir',
+    //   path: '/',
+    //   icon: <IoLogOutOutline size={20} />,
+    //   onClick: logout
+    // },
+  ]
+  const adminNavLinks = [
+    { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },
+    { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
+    { title: 'Usuarios', path: '/', icon: <IoPersonOutline size={20} /> },
+  ]
 
   return (
     <div>
@@ -81,6 +101,16 @@ export const Sidebar = () => {
             <SidebarItem key={item.title} {...item} />
           ))
         }
+        <button
+          onClick={() => {
+            logout();
+            closeSideMenu();
+          }}
+          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+        >
+          <IoLogOutOutline size={20} />
+          <span className="ml-3">Salir</span>
+        </button>
 
         <div className="w-full h-px bg-gray-200 my-10" />
 

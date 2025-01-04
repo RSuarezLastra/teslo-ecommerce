@@ -5,16 +5,16 @@ interface Props {
   title: string;
   path: string;
   icon: React.ReactNode;
+  onClick?: () => void;
 }
 
-export const SidebarItem = ({ title, path, icon }: Props) => {
+export const SidebarItem = ({ title, path, icon, onClick }: Props) => {
 
-    const closeSideMenu = useUiStore(state => state.closeSideMenu);
 
   return (
     <Link
       href={path}
-      onClick={() => closeSideMenu()}
+      onClick={() => onClick && onClick()}
       className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
     >
       {icon}
