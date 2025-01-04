@@ -29,14 +29,9 @@ export const Sidebar = () => {
     {
       title: 'Ingresar',
       path: '/auth/login',
-      icon: <IoLogInOutline size={20} />
+      icon: <IoLogInOutline size={20} />,
+      onClick: closeSideMenu
     },
-    // {
-    //   title: 'Salir',
-    //   path: '/',
-    //   icon: <IoLogOutOutline size={20} />,
-    //   onClick: logout
-    // },
   ]
   const adminNavLinks = [
     { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },

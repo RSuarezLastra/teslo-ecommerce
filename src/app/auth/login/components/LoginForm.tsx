@@ -13,7 +13,7 @@ export const LoginForm = () => {
     authenticate,
     undefined,
   );
-  console.log(isPending);
+
 
   return (
     <form action={formAction} className="flex flex-col">
