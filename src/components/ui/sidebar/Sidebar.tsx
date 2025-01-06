@@ -42,8 +42,8 @@ export const Sidebar = () => {
 
   const { data: session } = useSession();
 
-  console.log({session});
-  
+  const isAuthenticated = !!session?.user;
+
 
   return (
     <div>
@@ -102,16 +102,20 @@ export const Sidebar = () => {
             <SidebarItem key={item.title} {...item} />
           ))
         }
-        <button
-          onClick={() => {
-            logout();
-            closeSideMenu();
-          }}
-          className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
-        >
-          <IoLogOutOutline size={20} />
-          <span className="ml-3">Salir</span>
-        </button>
+        {
+          isAuthenticated && (
+            <button
+              onClick={() => {
+                logout();
+                closeSideMenu();
+              }}
+              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+            >
+              <IoLogOutOutline size={20} />
+              <span className="ml-3">Salir</span>
+            </button>
+          )
+        }
 
         <div className="w-full h-px bg-gray-200 my-10" />
 
