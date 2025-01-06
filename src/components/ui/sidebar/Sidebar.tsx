@@ -27,12 +27,6 @@ export const Sidebar = () => {
       path: '/',
       icon: <IoTicketOutline size={20} />
     },
-    {
-      title: 'Ingresar',
-      path: '/auth/login',
-      icon: <IoLogInOutline size={20} />,
-      onClick: closeSideMenu
-    },
   ]
   const adminNavLinks = [
     { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },
@@ -101,6 +95,16 @@ export const Sidebar = () => {
           navLinks.map(item => (
             <SidebarItem key={item.title} {...item} />
           ))
+        }
+        {
+          !isAuthenticated && (
+            <SidebarItem
+              title="Ingresar"
+              path="/auth/login"
+              icon={<IoLogInOutline size={20} />}
+              onClick={closeSideMenu}
+            />
+          )
         }
         {
           isAuthenticated && (
