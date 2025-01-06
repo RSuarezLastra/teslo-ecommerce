@@ -6,6 +6,7 @@ import { SidebarItem } from "./SidebarItem"
 import { useUiStore } from "@/store"
 import clsx from "clsx"
 import { logout } from "@/actions/auth/logout"
+import { useSession } from "next-auth/react"
 
 
 
@@ -38,6 +39,11 @@ export const Sidebar = () => {
     { title: 'Ordenes', path: '/', icon: <IoTicketOutline size={20} /> },
     { title: 'Usuarios', path: '/', icon: <IoPersonOutline size={20} /> },
   ]
+
+  const { data: session } = useSession();
+
+  console.log({session});
+  
 
   return (
     <div>

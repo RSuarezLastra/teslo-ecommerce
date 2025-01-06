@@ -32,11 +32,11 @@ export const authConfig: NextAuthConfig = {
         if (!passwordMatch) return null;
 
         const { password: _, ...userWithoutPassword } = user;
-        
+
         return userWithoutPassword;
       },
     }),
   ]
 };
 
-export const { signIn, signOut, auth } = NextAuth(authConfig);
+export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);
