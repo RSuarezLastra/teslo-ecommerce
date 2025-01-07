@@ -5,7 +5,7 @@ import { IoCloseOutline, IoLogInOutline, IoLogOutOutline, IoPersonOutline, IoSea
 import { SidebarItem } from "./SidebarItem"
 import { useUiStore } from "@/store"
 import clsx from "clsx"
-import { logout } from "@/actions/auth/logout"
+import { logout } from "@/actions"
 import { useSession } from "next-auth/react"
 import { useSearchParams } from "next/navigation"
 
