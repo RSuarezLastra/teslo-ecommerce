@@ -13,6 +13,7 @@ import { useSearchParams } from "next/navigation"
 
 export const Sidebar = () => {
   const searchParams = useSearchParams();
+  
   if(searchParams.has('auth')){
     window.location.replace('/')
   }
@@ -44,7 +45,6 @@ export const Sidebar = () => {
   const isAuthenticated = !!session?.user;
   const isAdmin = session?.user?.role === 'admin';
   const isUser = session?.user?.role === 'user';
-  console.log(isAdmin);
 
 
   return (
