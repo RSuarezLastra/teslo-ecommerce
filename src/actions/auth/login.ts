@@ -30,3 +30,19 @@ export async function authenticate(
     throw error;
   }
 }
+
+export async function login(email: string, password: string) {
+  try {
+    await signIn('credentials', { email, password });
+
+    return { ok: true };
+
+  } catch (error) {
+    console.log(error);
+    return {
+      ok: false,
+      message: 'Error al iniciar sesión'
+    }
+    
+  }
+}
