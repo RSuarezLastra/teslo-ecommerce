@@ -7,10 +7,15 @@ import { useUiStore } from "@/store"
 import clsx from "clsx"
 import { logout } from "@/actions/auth/logout"
 import { useSession } from "next-auth/react"
+import { useSearchParams } from "next/navigation"
 
 
 
 export const Sidebar = () => {
+  const searchParams = useSearchParams();
+  if(searchParams.has('auth')){
+    window.location.replace('/')
+  }
 
   const isSideMenuOpen = useUiStore(state => state.isSideMenuOpen);
   const closeSideMenu = useUiStore(state => state.closeSideMenu);
@@ -37,8 +42,10 @@ export const Sidebar = () => {
   const { data: session } = useSession();
 
   const isAuthenticated = !!session?.user;
-  console.log(isAuthenticated);
-  
+  const isAdmin = session?.user?.role === 'admin';
+  const isUser = session?.user?.role === 'user';
+  console.log(isAdmin);
+
 
   return (
     <div>
@@ -93,9 +100,11 @@ export const Sidebar = () => {
 
         {/* Menú */}
         {
-          navLinks.map(item => (
-            <SidebarItem key={item.title} {...item} />
-          ))
+          (isUser || isAdmin) && (
+            navLinks.map(item => (
+              <SidebarItem key={item.title} {...item} />
+            ))
+          )
         }
         {
           !isAuthenticated && (
@@ -122,13 +131,18 @@ export const Sidebar = () => {
           )
         }
 
-        <div className="w-full h-px bg-gray-200 my-10" />
 
         {/* Admin Menu */}
+
         {
-          adminNavLinks.map(item => (
-            <SidebarItem key={item.title} {...item} />
-          ))
+          isAdmin && (
+            <>
+              <div className="w-full h-px bg-gray-200 my-10" />
+              {adminNavLinks.map(item => (
+                <SidebarItem key={item.title} {...item} />
+              ))}
+            </>
+          )
         }
 
 
