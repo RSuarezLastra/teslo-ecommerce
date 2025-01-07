@@ -36,7 +36,22 @@ export const authConfig: NextAuthConfig = {
         return userWithoutPassword;
       },
     }),
-  ]
+  ],
+  callbacks: {
+    jwt: ({ token, user }) => {
+      if (user) {
+        token.data = user;
+      }
+
+      return token;
+    },
+    session: ({ session, user, token }) => {
+      session.user = token.data as any;
+      console.log(session);
+
+      return session;
+    },
+  }
 };
 
 export const { signIn, signOut, auth, handlers } = NextAuth(authConfig);

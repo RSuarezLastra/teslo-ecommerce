@@ -37,7 +37,8 @@ export const Sidebar = () => {
   const { data: session } = useSession();
 
   const isAuthenticated = !!session?.user;
-
+  console.log(isAuthenticated);
+  
 
   return (
     <div>
@@ -113,7 +114,7 @@ export const Sidebar = () => {
                 logout();
                 closeSideMenu();
               }}
-              className="flex items-center mt-10 p-2 hover:bg-gray-100 rounded transition-all"
+              className="flex items-center mt-5 p-2 hover:bg-gray-100 rounded transition-all w-full"
             >
               <IoLogOutOutline size={20} />
               <span className="ml-3">Salir</span>
