@@ -57,7 +57,7 @@ export const authConfig: NextAuthConfig = {
       if (!isLoggedIn && isOnAuthenticatedRoutes(nextUrl.pathname)) {
         return false;
       }
-      
+
       return true;
     },
     jwt: ({ token, user }) => {
@@ -69,7 +69,6 @@ export const authConfig: NextAuthConfig = {
     },
     session: ({ session, user, token }) => {
       session.user = token.data as any;
-      console.log(session);
 
       return session;
     },
