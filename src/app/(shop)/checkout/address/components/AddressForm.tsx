@@ -11,7 +11,7 @@ type FormInputs = {
   lastName: string;
   address: string;
   address2?: string;
-  postalCode: string;
+  zip: string;
   city: string;
   country: string;
   phone: string;
@@ -89,7 +89,7 @@ export const AddressForm = ({ countries }: Props) => {
         <input
           type="text"
           className="p-2 border rounded-md bg-gray-200"
-          {...register('postalCode', { required: true })}
+          {...register('zip', { required: true })}
         />
       </div>
 
