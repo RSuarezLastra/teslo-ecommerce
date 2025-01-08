@@ -1,19 +1,29 @@
 'use client';
 
 import Link from "next/link"
-import { useActionState } from 'react';
+import { useActionState, useEffect } from 'react';
 import { authenticate } from "@/actions";
 import clsx from "clsx";
 import { BsExclamationCircle } from "react-icons/bs";
+import { useSearchParams } from "next/navigation";
 
 
 export const LoginForm = () => {
+
+  const searchParams = useSearchParams();
 
   const [errorMessage, formAction, isPending] = useActionState(
     authenticate,
     undefined,
   );
 
+  const callbackUrl = searchParams.get("callbackUrl") || "/";
+
+  useEffect( () => {
+
+    if ( errorMessage === 'Success' ) window.location.replace( callbackUrl );
+
+  }, [ errorMessage, callbackUrl ] );
 
   return (
     <form action={formAction} className="flex flex-col">
