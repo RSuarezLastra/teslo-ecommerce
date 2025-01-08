@@ -30,6 +30,7 @@ export const AddressForm = ({ countries }: Props) => {
 
   const onSubmit = (data: FormInputs) => {
     console.log(data);
+    
   }
 
   return (
