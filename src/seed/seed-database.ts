@@ -1,5 +1,6 @@
 import { initialData } from "./seed";
 import prisma from "../lib/prisma";
+import { countries } from './seed-countries';
 
 
 async function main() {
@@ -12,6 +13,7 @@ async function main() {
     prisma.productImage.deleteMany(),
     prisma.product.deleteMany(),
     prisma.category.deleteMany(),
+    prisma.country.deleteMany(),
   ]);
 
   // users seed
@@ -55,6 +57,11 @@ async function main() {
     })
 
   });
+
+  // countries seed
+  await prisma.country.createMany({
+    data: countries
+  })
 
   console.log('Seed ejecutado correctamente');
 }
