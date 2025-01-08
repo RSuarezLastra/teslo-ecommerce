@@ -4,6 +4,19 @@ import { z } from 'zod';
 import bcryptjs from 'bcryptjs';
 import prisma from './lib/prisma';
 
+const authenticatedRoutes = [
+  '/checkout',
+  '/profile',
+  '/admin',
+  '/orders',
+];
+
+const isOnAuthenticatedRoutes = (onRoute: string) => {
+  return authenticatedRoutes.some((authRoutes) =>
+    onRoute.startsWith(authRoutes)
+  );
+};
+
 export const authConfig: NextAuthConfig = {
   pages: {
     signIn: '/auth/login',
@@ -38,6 +51,15 @@ export const authConfig: NextAuthConfig = {
     }),
   ],
   callbacks: {
+    authorized: async ({ auth, request: { nextUrl } }) => {
+      const isLoggedIn = !!auth?.user;
+
+      if (!isLoggedIn && isOnAuthenticatedRoutes(nextUrl.pathname)) {
+        return false;
+      }
+      
+      return true;
+    },
     jwt: ({ token, user }) => {
       if (user) {
         token.data = user;

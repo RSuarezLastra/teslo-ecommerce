@@ -15,7 +15,7 @@ export async function authenticate(
     await signIn('credentials', {
       ...Object.fromEntries(formData),
       redirect: true,
-      redirectTo: '/?auth=true'
+      redirectTo: '/'
     });
 
   } catch (error) {
@@ -43,6 +43,6 @@ export async function login(email: string, password: string) {
       ok: false,
       message: 'Error al iniciar sesión'
     }
-    
+
   }
 }

@@ -12,11 +12,6 @@ import { useSearchParams } from "next/navigation"
 
 
 export const Sidebar = () => {
-  const searchParams = useSearchParams();
-  
-  if(searchParams.has('auth')){
-    window.location.replace('/')
-  }
 
   const isSideMenuOpen = useUiStore(state => state.isSideMenuOpen);
   const closeSideMenu = useUiStore(state => state.closeSideMenu);
