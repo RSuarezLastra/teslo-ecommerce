@@ -6,7 +6,7 @@ import { Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
-import { setUserAddress } from "@/actions";
+import { deleteUserAddress, setUserAddress } from "@/actions";
 
 type FormInputs = {
   firstName: string;
@@ -54,7 +54,7 @@ export const AddressForm = ({ countries }: Props) => {
     if (rememberAddress) {
       await setUserAddress(restAddress, session!.user.id);
     }else{
-      
+      await deleteUserAddress(session!.user.id);
     }
 
 

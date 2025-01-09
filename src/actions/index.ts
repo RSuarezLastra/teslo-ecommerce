@@ -9,3 +9,4 @@ export * from './auth/register';
 export * from './auth/logout';
 
 export * from './address/set-user-address';
+export * from './address/delete-user-address';
