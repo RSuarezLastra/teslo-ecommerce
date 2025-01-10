@@ -1,13 +1,7 @@
-import { QuantitySelector, Title } from "@/components";
-import { initialData } from "@/seed/seed";
-import Image from "next/image";
+import { Title } from "@/components";
 import Link from "next/link";
+import { ProductsInCartCheckout } from "./components/ProducstInCartCheckout";
 
-const productsInCart = [
-  initialData.products[0],
-  initialData.products[1],
-  initialData.products[2],
-]
 
 export default function () {
   return (
@@ -28,30 +22,7 @@ export default function () {
 
 
             {/* Items */}
-            {
-              productsInCart.map(product => (
-                <div key={product.slug} className="flex mb-5">
-                  <Image
-                    src={`/products/${product.images[0]}`}
-                    width={100}
-                    height={100}
-                    style={{
-                      width: '100px',
-                      height: '100px'
-                    }}
-                    alt={product.title}
-                    className="mr-5 rounded"
-                  />
-
-                  <div>
-                    <p>{product.title}</p>
-                    <p>${product.price} x 3</p>
-                    <p>Subtotal: ${product.price * 3}</p>
-
-                  </div>
-                </div>
-              ))
-            }
+            <ProductsInCartCheckout />
           </div>
 
           {/* Checkout */}
