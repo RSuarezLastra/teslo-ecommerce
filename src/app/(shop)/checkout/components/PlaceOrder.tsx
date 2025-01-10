@@ -2,22 +2,41 @@
 
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils"
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 
 
 export const PlaceOrder = () => {
 
-    const { getOrderSummary } = useCartStore();
-    const { totalItems, taxes, subtotal, total } = getOrderSummary();
-    const address = useAddressStore(state => state.address);
-  
-    const [loaded, setLoaded] = useState(false);
-  
-    useEffect(() => {
-      setLoaded(true);
-    }, []);
-  
-    if (!loaded) return <p>Cargando...</p>;
+  const { getOrderSummary } = useCartStore();
+  const { totalItems, taxes, subtotal, total } = getOrderSummary();
+
+  const address = useAddressStore(state => state.address);
+  const cart = useCartStore(state => state.cart);
+
+  const [loaded, setLoaded] = useState(false);
+  const [isPlacingOrder, setIsPlacingOrder] = useState(false);
+
+  const onPlaceOrder = () => {
+    setIsPlacingOrder(true);
+
+    const productsToOrder = cart.map(product => ({
+      productId: product.id,
+      quantity: product.quantity,
+      size: product.size
+    }))
+
+    console.log(address);
+    console.log(productsToOrder);
+
+
+  }
+
+  useEffect(() => {
+    setLoaded(true);
+  }, []);
+
+  if (!loaded) return <p>Cargando...</p>;
 
   return (
 
@@ -64,7 +83,12 @@ export const PlaceOrder = () => {
 
         <button
           // href="/orders/123"
-          className="flex btn-primary justify-center"
+          disabled={isPlacingOrder}
+          onClick={onPlaceOrder}
+          className={clsx({
+            'btn-primary': !isPlacingOrder,
+            'btn-disabled': isPlacingOrder,
+          })}
         >
           Generar orden
         </button>
