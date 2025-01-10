@@ -6,7 +6,7 @@ import { useEffect, useState } from "react";
 
 export const OrderSummary = () => {
 
-  const { getOrderSummary } = useCartStore()
+  const { getOrderSummary } = useCartStore();
   const { totalItems, taxes, subtotal, total } = getOrderSummary();
 
   const [loaded, setLoaded] = useState(false);
