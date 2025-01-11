@@ -10,7 +10,7 @@ interface ProductToOrder {
   size: Size;
 }
 
-export const placerOrder = async (productsId: ProductToOrder[], address: Address) => {
+export const placerOrder = async (productIds: ProductToOrder[], address: Address) => {
 
   const session = await auth();
   const userId = session?.user.id;
@@ -25,14 +25,15 @@ export const placerOrder = async (productsId: ProductToOrder[], address: Address
   const products = await prisma.product.findMany({
     where: {
       id: {
-        in: productsId.map(p => p.productId)
+        in: productIds.map(p => p.productId)
       }
     }
   });
 
-  const itemsInOrder = productsId.reduce((count, product) => count + product.quantity, 0)
+  const itemsInOrder = productIds.reduce((count, product) => count + product.quantity, 0)
 
-  const { subTotal, tax, total } = productsId.reduce((totals, item) => {
+  // calcular totales
+  const { subTotal, tax, total } = productIds.reduce((totals, item) => {
 
     const productQuantity = item.quantity;
     const product = products.find(product => product.id === item.productId);
@@ -49,5 +50,40 @@ export const placerOrder = async (productsId: ProductToOrder[], address: Address
   }, { subTotal: 0, tax: 0, total: 0 })
 
   console.log(subTotal, tax, total);
-  
+
+  // Hacer transaccion
+  const prismaTx = await prisma.$transaction(async (tx) => {
+
+    // 1. Actualizar stock de los productos
+
+    // 2. Crear la orden - Encabezado - Detalles
+    const order = await tx.order.create({
+      data: {
+        userId: userId,
+        itemsInOrder: itemsInOrder,
+        subTotal: subTotal,
+        tax: tax,
+        total: total,
+
+        OrderItem: {
+          createMany: {
+            data: productIds.map((p) => ({
+              quantity: p.quantity,
+              size: p.size,
+              productId: p.productId,
+              price:
+                products.find((product) => product.id === p.productId)?.price ?? 0,
+            })),
+          },
+        },
+      },
+    });
+
+    // 3. Crear la dirección de la orden 
+
+    return {
+      order: order
+    }
+  })
+
 }
