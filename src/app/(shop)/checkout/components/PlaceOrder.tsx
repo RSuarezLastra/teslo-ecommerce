@@ -1,5 +1,6 @@
 'use client';
 
+import { placerOrder } from "@/actions";
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils"
 import clsx from "clsx";
@@ -17,7 +18,7 @@ export const PlaceOrder = () => {
   const [loaded, setLoaded] = useState(false);
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
-  const onPlaceOrder = () => {
+  const onPlaceOrder = async () => {
     setIsPlacingOrder(true);
 
     const productsToOrder = cart.map(product => ({
@@ -26,9 +27,8 @@ export const PlaceOrder = () => {
       size: product.size
     }))
 
-    console.log(address);
-    console.log(productsToOrder);
 
+    const resp = await placerOrder(productsToOrder, address);
 
   }
 
