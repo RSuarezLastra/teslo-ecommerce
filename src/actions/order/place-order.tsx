@@ -59,7 +59,7 @@ export const placerOrder = async (productIds: ProductToOrder[], address: Address
     // 2. Crear la orden - Encabezado - Detalles
     const order = await tx.order.create({
       data: {
-        userId: userId,
+        UserId: userId,
         itemsInOrder: itemsInOrder,
         subTotal: subTotal,
         tax: tax,
@@ -70,7 +70,7 @@ export const placerOrder = async (productIds: ProductToOrder[], address: Address
             data: productIds.map((p) => ({
               quantity: p.quantity,
               size: p.size,
-              productId: p.productId,
+              ProductId: p.productId,
               price:
                 products.find((product) => product.id === p.productId)?.price ?? 0,
             })),

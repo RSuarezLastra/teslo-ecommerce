@@ -1,8 +1,6 @@
 'use client';
 
 import Image from 'next/image'
-import Link from "next/link";
-import { QuantitySelector } from "@/components"
 import { useCartStore } from "@/store"
 import { useEffect, useState } from 'react';
 import { currencyFormat } from '../../../../utils/currencyFormat';
@@ -12,8 +10,6 @@ import { currencyFormat } from '../../../../utils/currencyFormat';
 export const ProductsInCartCheckout = () => {
 
   const productsInCart = useCartStore(state => state.cart);
-  const updateProductQuantity = useCartStore(state => state.updateProductQuantity);
-  const removeProduct = useCartStore(state => state.removeProduct);
 
   const [loaded, setLoaded] = useState(false);
 
