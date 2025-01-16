@@ -11,6 +11,7 @@ E-commerce Teslo, clon de la tienda de tesla.
 5. Ejecutar las migraciones  ```npx prisma migrate dev```
 6. Ejecutar nuestro seed  ```npm run seed```
 7. Correr el proyecto ```npm run dev```
+8. Limpiar localstorage
 
 
 
