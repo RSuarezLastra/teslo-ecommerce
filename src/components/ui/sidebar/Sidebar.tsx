@@ -7,7 +7,6 @@ import { useUiStore } from "@/store"
 import clsx from "clsx"
 import { logout } from "@/actions"
 import { useSession } from "next-auth/react"
-import { useSearchParams } from "next/navigation"
 
 
 
@@ -25,7 +24,7 @@ export const Sidebar = () => {
     },
     {
       title: 'Ordenes',
-      path: '/',
+      path: '/orders',
       icon: <IoTicketOutline size={20} />
     },
   ]
@@ -107,7 +106,6 @@ export const Sidebar = () => {
               title="Ingresar"
               path="/auth/login"
               icon={<IoLogInOutline size={20} />}
-              onClick={closeSideMenu}
             />
           )
         }
