@@ -29,7 +29,8 @@ export const PlaceOrder = () => {
 
 
     const resp = await placerOrder(productsToOrder, address);
-
+    console.log(resp);
+    
   }
 
   useEffect(() => {
