@@ -2,7 +2,7 @@
 
 import clsx from "clsx";
 import { useForm } from "react-hook-form";
-import { Address, Country } from "@/interfaces";
+import { UserAddress, Country } from "@/interfaces";
 import { useAddressStore } from "@/store";
 import { useEffect } from "react";
 import { useSession } from "next-auth/react";
@@ -23,10 +23,12 @@ type FormInputs = {
 
 interface Props {
   countries: Country[];
-  userStoreAddress?: Partial<Address>;
+  userStoreAddress?: Partial<UserAddress>;
 }
 
 export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
+  const { id, userId, ...restUserDb} = userStoreAddress;
+  
   const router = useRouter();
 
   const { data: session } = useSession({
@@ -38,7 +40,7 @@ export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
 
   const { handleSubmit, register, formState: { isValid }, reset } = useForm<FormInputs>({
     defaultValues: {
-      ...userStoreAddress,
+      ...restUserDb,
       rememberAddress: false
     }
   });
@@ -47,17 +49,16 @@ export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
     if (address.firstName) {
       reset(address);
     }
-  }, []);
+  }, [reset, address]);
 
   const onSubmit = async (data: FormInputs) => {
-
-    setAddress(data);
-
     const { rememberAddress, ...restAddress } = data;
-    
+
+    setAddress(restAddress);
+
     if (rememberAddress) {
       await setUserAddress(restAddress, session!.user.id);
-    }else{
+    } else {
       await deleteUserAddress(session!.user.id);
     }
 
