@@ -1,21 +1,25 @@
 'use client';
 
+import { useRouter } from "next/navigation";
+import { useEffect, useState } from "react";
+import clsx from "clsx";
 import { placerOrder } from "@/actions";
 import { useAddressStore, useCartStore } from "@/store";
 import { currencyFormat } from "@/utils"
-import clsx from "clsx";
-import { useEffect, useState } from "react";
 
 
 export const PlaceOrder = () => {
+  const router = useRouter(); 
 
   const { getOrderSummary } = useCartStore();
   const { totalItems, taxes, subtotal, total } = getOrderSummary();
 
   const address = useAddressStore(state => state.address);
   const cart = useCartStore(state => state.cart);
+  const clearCart = useCartStore(state => state.clearCart);
 
   const [loaded, setLoaded] = useState(false);
+  const [errorMessage, setErrorMessage] = useState('');
   const [isPlacingOrder, setIsPlacingOrder] = useState(false);
 
   const onPlaceOrder = async () => {
@@ -29,8 +33,14 @@ export const PlaceOrder = () => {
 
 
     const resp = await placerOrder(productsToOrder, address);
-    console.log(resp);
+    if(!resp.ok){
+      setIsPlacingOrder(false);
+      setErrorMessage(resp.message);
+      return;
+    }
     
+    clearCart();
+    router.replace('/orders/' + resp.order?.id)
   }
 
   useEffect(() => {
@@ -81,6 +91,8 @@ export const PlaceOrder = () => {
             Al hacer click en "Generar orden", aceptas nuestros <a href="#" className="underline">términos y condiciones</a> y <a href="#">política de privacidad</a>
           </span>
         </p>
+
+        <p className="text-red-500 text-sm mb-2">{errorMessage}</p>
 
         <button
           // href="/orders/123"
