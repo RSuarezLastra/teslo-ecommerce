@@ -22,4 +22,4 @@ export * from './product/stock-label/StockLabel';
 
 //? providers 
 
-export * from './providers/Provider';
+export * from './providers/Providers';
