@@ -1,5 +1,5 @@
 import { getOrderById } from "@/actions";
-import { Title } from "@/components";
+import { PaypalButton, Title } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
@@ -104,7 +104,7 @@ export default async function ({ params }: Props) {
 
             <div className="mt-5 mb-2 w-full">
 
-              <PaymentStatus isPaid={order!.isPaid} />
+              <PaypalButton />
             </div>
 
           </div>

@@ -23,3 +23,7 @@ export * from './product/stock-label/StockLabel';
 //? providers 
 
 export * from './providers/Providers';
+
+//? paypal
+
+export * from './paypal/PaypalButton';
