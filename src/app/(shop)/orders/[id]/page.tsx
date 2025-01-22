@@ -58,7 +58,7 @@ export default async function ({ params }: Props) {
                   />
 
                   <div>
-                    <p>{item.product.title}</p>
+                    <p>{item.product.title} - {item.size}</p>
                     <p>{currencyFormat(item.price)} x {item.quantity}</p>
                     <p className="font-semibold">Subtotal: {item.price * item.quantity}</p>
 
