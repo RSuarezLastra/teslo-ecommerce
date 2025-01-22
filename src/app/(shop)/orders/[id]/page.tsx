@@ -25,8 +25,6 @@ export default async function ({ params }: Props) {
 
   const address = order?.OrderAddress;
 
-  console.log(order);
-
   return (
     <div className="flex justify-center items-center mb-72 px-10 sm:px-0">
 
@@ -58,7 +56,12 @@ export default async function ({ params }: Props) {
                   />
 
                   <div>
-                    <p>{item.product.title} - {item.size}</p>
+                    <Link
+                      href={`/product/${item.product.slug}`}
+                      className="hover:underline"
+                    >
+                      {item.product.title} - {item.size}
+                    </Link>
                     <p>{currencyFormat(item.price)} x {item.quantity}</p>
                     <p className="font-semibold">Subtotal: {item.price * item.quantity}</p>
 
