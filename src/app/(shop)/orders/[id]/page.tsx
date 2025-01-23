@@ -1,8 +1,8 @@
-import { getOrderById } from "@/actions";
-import { PaypalButton, Title } from "@/components";
 import Image from "next/image";
 import Link from "next/link";
 import { redirect } from "next/navigation";
+import { getOrderById } from "@/actions";
+import { PaypalButton, Title } from "@/components";
 import { PaymentStatus } from "./components";
 import { currencyFormat } from "@/utils";
 
@@ -107,7 +107,10 @@ export default async function ({ params }: Props) {
 
             <div className="mt-5 mb-2 w-full">
 
-              <PaypalButton />
+              <PaypalButton
+                orderId={order!.id}
+                amount={order!.total}
+              />
             </div>
 
           </div>
