@@ -106,11 +106,17 @@ export default async function ({ params }: Props) {
             </div>
 
             <div className="mt-5 mb-2 w-full">
+              {
+                order?.isPaid ? (
+                  <PaymentStatus isPaid={order!.isPaid} />
+                ) : (
+                  <PaypalButton
+                    orderId={order!.id}
+                    amount={order!.total}
+                  />
+                )
+              }
 
-              <PaypalButton
-                orderId={order!.id}
-                amount={order!.total}
-              />
             </div>
 
           </div>
