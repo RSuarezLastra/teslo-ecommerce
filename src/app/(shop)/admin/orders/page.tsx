@@ -14,7 +14,7 @@ export default async function AdminOrdersPage() {
 
   return (
     <>
-      <Title title="All Orders" />
+      <Title title="Todas las ordenes" />
 
       <div className="mb-10">
         <table className="min-w-full">
