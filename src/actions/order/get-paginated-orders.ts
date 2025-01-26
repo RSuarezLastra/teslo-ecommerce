@@ -1,5 +1,5 @@
 import prisma from "@/lib/prisma";
-import { auth } from "@/auth.config"
+import { verifyAdminAuth } from "@/utils";
 
 interface PaginationOptions {
   page?: number;
@@ -14,16 +14,9 @@ export const getPaginatedOrders = async ({
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1
 
-  const session = await auth();
+  await verifyAdminAuth();
 
   try {
-
-    if (session?.user.role !== 'admin') {
-      return {
-        ok: false,
-        message: 'Debe estar autenticado como administrador'
-      }
-    }
 
     const orders = await prisma.order.findMany({
       orderBy: {

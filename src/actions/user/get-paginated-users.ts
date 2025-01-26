@@ -1,18 +1,13 @@
 import prisma from "@/lib/prisma";
-import { auth } from "@/auth.config"
+import { verifyAdminAuth } from "@/utils";
+
 
 
 export const getPaginatedUsers = async () => {
-  const session = await auth();
+
+  await verifyAdminAuth();
 
   try {
-
-    if (session?.user.role !== 'admin') {
-      return {
-        ok: false,
-        message: 'Debe estar autenticado como administrador'
-      }
-    }
 
     const users = await prisma.user.findMany({
       orderBy: {
