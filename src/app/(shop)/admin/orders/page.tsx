@@ -1,5 +1,4 @@
 import Link from 'next/link';
-import { redirect } from 'next/navigation';
 import { getPaginatedOrders } from '@/actions';
 import { Pagination, Title } from '@/components';
 import { IoCardOutline } from 'react-icons/io5';
@@ -17,9 +16,6 @@ export default async function AdminOrdersPage({ searchParams }: Props) {
 
   const { ok, orders, totalPages } = await getPaginatedOrders({ page: pageNumber });
 
-  if (!ok) {
-    redirect('/auth/login');
-  }
 
   return (
     <>

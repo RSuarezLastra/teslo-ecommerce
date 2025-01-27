@@ -1,3 +1,4 @@
+import type { OrderWithAddress } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { verifyAdminAuth } from "@/utils";
 
@@ -6,10 +7,18 @@ interface PaginationOptions {
   take?: number;
 }
 
+interface PaginatedOrdersResult {
+  ok: boolean;
+  orders?: OrderWithAddress[];
+  currentPage?: number;
+  totalPages?: number;
+  message?: string;
+}
+
 export const getPaginatedOrders = async ({
   page = 1,
   take = 15
-}: PaginationOptions) => {
+}: PaginationOptions): Promise<PaginatedOrdersResult> => {
 
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1
