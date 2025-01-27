@@ -29,7 +29,7 @@ export const Sidebar = () => {
     },
   ]
   const adminNavLinks = [
-    { title: 'Productos', path: '/', icon: <IoShirtOutline size={20} /> },
+    { title: 'Productos', path: '/admin/products', icon: <IoShirtOutline size={20} /> },
     { title: 'Ordenes', path: '/admin/orders', icon: <IoTicketOutline size={20} /> },
     { title: 'Usuarios', path: '/admin/users', icon: <IoPersonOutline size={20} /> },
   ]
