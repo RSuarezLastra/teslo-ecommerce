@@ -1,11 +1,17 @@
+import { User } from "@/interfaces";
 import prisma from "@/lib/prisma";
 import { verifyAdminAuth } from "@/utils";
 
+interface PaginatedUsersResult {
+  ok: boolean;
+  users?: User[];
+  message?: string;
+}
 
+export const getPaginatedUsers = async (): Promise<PaginatedUsersResult> => {
 
-export const getPaginatedUsers = async () => {
-
-  await verifyAdminAuth();
+  const authResult = await verifyAdminAuth();
+  if (!authResult.ok) return authResult;
 
   try {
 

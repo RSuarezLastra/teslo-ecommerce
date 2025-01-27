@@ -14,7 +14,8 @@ export const getPaginatedOrders = async ({
   if (isNaN(Number(page))) page = 1;
   if (page < 1) page = 1
 
-  await verifyAdminAuth();
+  const authResult = await verifyAdminAuth();
+  if (!authResult.ok) return authResult;
 
   try {
 
