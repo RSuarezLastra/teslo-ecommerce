@@ -21,7 +21,7 @@ export async function generateMetadata(
 
   const { slug } = await params;
 
-  const product = await getProductBySlug(slug)
+  const product = await getProductBySlug(slug);
 
 
   return {

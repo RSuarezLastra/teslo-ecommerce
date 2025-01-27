@@ -70,7 +70,7 @@ export default async function ProductsPage({ searchParams }: Props) {
                     </Link>
                   </td>
                   <td className="text-sm text-gray-900 p-4 whitespace-nowrap">
-                    <Link href={`/admin/product/${product.slug}`}
+                    <Link href={`/admin/products/${product.slug}`}
                       className='hover:underline'
                     >
                       {product.title}
