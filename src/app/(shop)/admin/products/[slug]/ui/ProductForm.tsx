@@ -3,6 +3,7 @@
 import Image from "next/image";
 import { useForm } from "react-hook-form";
 import { Category, Product, ProductImage } from "@/interfaces";
+import clsx from "clsx";
 
 interface Props {
   product: Product & { ProductImage?: ProductImage[] };
@@ -25,13 +26,30 @@ const sizes = ["XS", "S", "M", "L", "XL", "XXL"];
 
 export const ProductForm = ({ product, categories }: Props) => {
 
-  const { handleSubmit, register, formState: { isValid } } = useForm<FormInputs>({
+  const {
+    handleSubmit,
+    register,
+    formState: { isValid },
+    getValues,
+    setValue,
+    watch,
+  } = useForm<FormInputs>({
     defaultValues: {
       ...product,
       tags: product.tags.join(', '),
     }
   });
-  console.log(product);
+
+  watch('sizes');
+
+  const onSizeChanged = (size: string) => {
+
+    const sizes = new Set(getValues('sizes'));
+
+    sizes.has(size) ? sizes.delete(size) : sizes.add(size);
+    
+    setValue('sizes', Array.from(sizes));
+  }
 
   const onSubmit = async (data: FormInputs) => {
     console.log(data);
@@ -124,12 +142,17 @@ export const ProductForm = ({ product, categories }: Props) => {
         <div className="flex flex-col">
 
           <span>Tallas</span>
-          <div className="flex flex-wrap">
+          <div className="flex flex-wrap mb-2 gap-2">
 
             {
               sizes.map(size => (
                 // bg-blue-500 text-white <--- si está seleccionado
-                <div key={size} className="flex  items-center justify-center w-10 h-10 mr-2 border rounded-md">
+                <div
+                  key={size}
+                  onClick={() => onSizeChanged(size)}
+                  className={clsx("text-center p-2 justify-center w-12 h-10 border rounded-md mt-2 cursor-pointer transition-all", {
+                    "bg-blue-500 text-white": getValues('sizes').includes(size)
+                  })}>
                   <span>{size}</span>
                 </div>
               ))
@@ -162,7 +185,9 @@ export const ProductForm = ({ product, categories }: Props) => {
                     height={300}
                     className="rounded-t-lg"
                   />
-                  <button className="btn-danger w-full rounded-b-lg">
+                  <button
+                    type="button"
+                    className="btn-danger w-full rounded-b-lg">
                     Eliminar
                   </button>
                 </div>
