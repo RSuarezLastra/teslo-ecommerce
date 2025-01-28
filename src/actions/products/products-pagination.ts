@@ -25,7 +25,8 @@ export const getPaginatedProductsWithImages = async ({
         ProductImage: {
           take: 2,
           select: {
-            url: true
+            id: true,
+            url: true,
           }
         }
       },

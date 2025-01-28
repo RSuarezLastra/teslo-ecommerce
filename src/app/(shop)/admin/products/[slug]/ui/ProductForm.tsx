@@ -1,10 +1,11 @@
 "use client";
 
-import { Category, Product } from "@/interfaces";
+import Image from "next/image";
 import { useForm } from "react-hook-form";
+import { Category, Product, ProductImage } from "@/interfaces";
 
 interface Props {
-  product: Product;
+  product: Product & { ProductImage?: ProductImage[] };
   categories: Category[];
 }
 
@@ -30,13 +31,14 @@ export const ProductForm = ({ product, categories }: Props) => {
       tags: product.tags.join(', '),
     }
   });
-  
+  console.log(product);
+
   const onSubmit = async (data: FormInputs) => {
     console.log(data);
   }
 
   return (
-    <form onSubmit={handleSubmit(onSubmit)} className="grid px-5 mb-16 grid-cols-1 sm:grid-cols-2 gap-3">
+    <form onSubmit={handleSubmit(onSubmit)} className="grid px-5 mb-16 grid-cols-1 sm:grid-cols-2 gap-4 lg:gap-8" >
       {/* Textos */}
       <div className="w-full">
         <div className="flex flex-col mb-2">
@@ -145,6 +147,27 @@ export const ProductForm = ({ product, categories }: Props) => {
               className="p-2 border rounded-md bg-gray-200"
               accept="image/png, image/jpeg"
             />
+
+          </div>
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
+
+            {
+              product.ProductImage?.map(image => (
+                <div key={image.id}>
+                  <Image
+                    alt={product.title ?? ''}
+                    src={`/products/${image.url}`}
+                    width={300}
+                    height={300}
+                    className="rounded-t-lg"
+                  />
+                  <button className="btn-danger w-full rounded-b-lg">
+                    Eliminar
+                  </button>
+                </div>
+              ))
+            }
 
           </div>
 
