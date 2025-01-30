@@ -59,16 +59,26 @@ export const createUpdateProduct = async (formData: FormData) => {
           }
         }
       });
-      
-      console.log({ updatedProduct: product });
 
     } else {
 
+      product = await tx.product.create({
+        data: {
+          ...rest,
+          sizes: {
+            set: rest.sizes as Size[]
+          },
+          tags: {
+            set: tagsArray
+          }
+        }
+      });
+
     }
 
+    return { product }
+
   })
-
-
 
 
   return {

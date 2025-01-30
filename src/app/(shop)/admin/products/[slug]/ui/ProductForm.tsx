@@ -7,7 +7,7 @@ import { Category, Product, ProductImage } from "@/interfaces";
 import { createUpdateProduct } from "@/actions";
 
 interface Props {
-  product: Product & { ProductImage?: ProductImage[] };
+  product: Product & { ProductImage?: ProductImage[] } | null;
   categories: Category[];
 }
 
@@ -37,7 +37,8 @@ export const ProductForm = ({ product, categories }: Props) => {
   } = useForm<FormInputs>({
     defaultValues: {
       ...product,
-      tags: product.tags.join(', '),
+      tags: product?.tags.join(', '),
+      sizes: product?.sizes ?? []
     }
   });
 
@@ -59,7 +60,9 @@ export const ProductForm = ({ product, categories }: Props) => {
 
     const { ...productToSave } = data;
 
-    formData.append('id', product.id ?? '');
+    if (product?.id) {
+      formData.append('id', product?.id ?? '');
+    }
     formData.append('title', productToSave.title);
     formData.append('slug', productToSave.slug);
     formData.append('description', productToSave.description);
@@ -72,7 +75,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
     const { ok } = await createUpdateProduct(formData);
     console.log(ok);
-    
+
   }
 
 
@@ -112,7 +115,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           <input
             type="number"
             className="p-2 border rounded-md bg-gray-200"
-            {...register('price', { required: true })}
+            {...register('price', { required: true, min: 0 })}
           />
         </div>
 
@@ -152,7 +155,9 @@ export const ProductForm = ({ product, categories }: Props) => {
           </select>
         </div>
 
-        <button className="btn-primary w-full">
+        <button
+          type="submit"
+          className="btn-primary w-full">
           Guardar
         </button>
       </div>
@@ -162,11 +167,20 @@ export const ProductForm = ({ product, categories }: Props) => {
         {/* As checkboxes */}
         <div className="flex flex-col">
 
+          <div className="flex flex-col mb-2">
+            <span>Inventario</span>
+            <input
+              type="number"
+              className="p-2 border rounded-md bg-gray-200"
+              {...register('inStock', { required: true, min: 0 })}
+            />
+          </div>
+
           <span>Tallas</span>
           <div className="flex flex-wrap mb-2 gap-2">
 
             {
-              sizes.map(size => (
+              sizes?.map(size => (
                 // bg-blue-500 text-white <--- si está seleccionado
                 <div
                   key={size}
@@ -197,7 +211,7 @@ export const ProductForm = ({ product, categories }: Props) => {
           <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
 
             {
-              product.ProductImage?.map(image => (
+              product?.ProductImage?.map(image => (
                 <div key={image.id}>
                   <Image
                     alt={product.title ?? ''}

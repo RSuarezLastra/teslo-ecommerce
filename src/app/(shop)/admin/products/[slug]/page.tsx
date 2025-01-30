@@ -20,7 +20,7 @@ export default async function ProductPage({ params }: Props) {
   ]);
 
 
-  if (!product) {
+  if (!product && slug !== 'new') {
     redirect('/admin/products');
   }
 
