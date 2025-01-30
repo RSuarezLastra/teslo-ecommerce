@@ -18,6 +18,7 @@ export * from './product/quantity-selector/QuantitySelector';
 export * from './product/slide-show/ProductSlideShow';
 export * from './product/slide-show/ProductMobileSlideShow';
 export * from './product/stock-label/StockLabel';
+export * from './product/product-image/ProductImage';
 
 
 //? providers 
