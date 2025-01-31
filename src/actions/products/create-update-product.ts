@@ -3,6 +3,7 @@
 import { z } from 'zod';
 import { Gender, Product, Size } from '@prisma/client';
 import prisma from '@/lib/prisma';
+import { revalidatePath } from 'next/cache';
 
 
 const ProductSchema = z.object({
@@ -31,7 +32,6 @@ export const createUpdateProduct = async (formData: FormData) => {
   const productParsed = ProductSchema.safeParse(data);
 
   if (!productParsed.success) {
-    console.log(productParsed.error);
     return { ok: false }
   }
 
@@ -40,48 +40,62 @@ export const createUpdateProduct = async (formData: FormData) => {
 
   const { id, ...rest } = product;
 
-  const prismaTx = await prisma.$transaction(async (tx) => {
+  try {
+    const prismaTx = await prisma.$transaction(async (tx) => {
 
-    let product: Product;
-    const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
+      let product: Product;
+      const tagsArray = rest.tags.split(',').map(tag => tag.trim().toLowerCase());
 
-    if (id) {
+      if (id) {
 
-      product = await tx.product.update({
-        where: { id },
-        data: {
-          ...rest,
-          sizes: {
-            set: rest.sizes as Size[]
-          },
-          tags: {
-            set: tagsArray
+        product = await tx.product.update({
+          where: { id },
+          data: {
+            ...rest,
+            sizes: {
+              set: rest.sizes as Size[]
+            },
+            tags: {
+              set: tagsArray
+            }
           }
-        }
-      });
+        });
 
-    } else {
+      } else {
 
-      product = await tx.product.create({
-        data: {
-          ...rest,
-          sizes: {
-            set: rest.sizes as Size[]
-          },
-          tags: {
-            set: tagsArray
+        product = await tx.product.create({
+          data: {
+            ...rest,
+            sizes: {
+              set: rest.sizes as Size[]
+            },
+            tags: {
+              set: tagsArray
+            }
           }
-        }
-      });
+        });
 
+      }
+
+      return { product }
+
+    });
+
+    revalidatePath('/admin/products');
+    revalidatePath(`/admin/products/${product.slug}`);
+    revalidatePath(`/products/${product.slug}`);
+
+    return {
+      ok: true,
+      product: prismaTx.product
     }
 
-    return { product }
-
-  })
-
-
-  return {
-    ok: true,
+  } catch (error) {
+    console.error(error);
+    return {
+      ok: false,
+      message: 'No se pudo acutalizar/crear el producto'
+    }
   }
+
 }
