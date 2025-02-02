@@ -82,7 +82,17 @@ export const createUpdateProduct = async (formData: FormData) => {
       //load images
       if (formData.getAll('images')) {
         const images = await uploadImages(formData.getAll('images') as File[]);
-        console.log(images);
+
+        if (!images) {
+          throw new Error('No se pudieron subir las imagenes al servidor');
+        }
+
+        await tx.productImage.createMany({
+          data: images.map(image => ({
+            url: image!,
+            productId: product.id
+          }))
+        });
 
       }
 

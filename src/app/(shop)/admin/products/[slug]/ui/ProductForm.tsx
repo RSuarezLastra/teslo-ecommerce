@@ -1,14 +1,14 @@
 "use client";
 
-import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
 import { createUpdateProduct } from "@/actions";
-import { Category, Product, ProductImage } from "@/interfaces";
+import { Category, Product, ProductImage as ProductWithImage } from "@/interfaces";
+import { ProductImage } from "@/components";
 
 interface Props {
-  product: Product & { ProductImage?: ProductImage[] } | null;
+  product: Product & { ProductImage?: ProductWithImage[] } | null;
   categories: Category[];
 }
 
@@ -78,7 +78,7 @@ export const ProductForm = ({ product, categories }: Props) => {
     formData.append('categoryId', productToSave.categoryId);
     formData.append('gender', productToSave.gender);
 
-    if(productToSave.images){
+    if (productToSave.images) {
       for (let i = 0; i < productToSave.images.length; i++) {
         formData.append('images', productToSave.images[i]);
       }
@@ -231,9 +231,9 @@ export const ProductForm = ({ product, categories }: Props) => {
             {
               product?.ProductImage?.map(image => (
                 <div key={image.id}>
-                  <Image
+                  <ProductImage
                     alt={product.title ?? ''}
-                    src={`/products/${image.url}`}
+                    src={image.url}
                     width={300}
                     height={300}
                     className="rounded-t-lg"
