@@ -3,7 +3,7 @@
 import { useRouter } from "next/navigation";
 import { useForm } from "react-hook-form";
 import clsx from "clsx";
-import { createUpdateProduct } from "@/actions";
+import { createUpdateProduct, deleteProductImage } from "@/actions";
 import { Category, Product, ProductImage as ProductWithImage } from "@/interfaces";
 import { ProductImage } from "@/components";
 
@@ -173,8 +173,14 @@ export const ProductForm = ({ product, categories }: Props) => {
         </div>
 
         <button
+          disabled={!isValid}
           type="submit"
-          className="btn-primary w-full">
+          className={clsx("w-full",
+            {
+              "btn-primary": isValid,
+              "btn-disabled": !isValid
+            }
+          )}>
           Guardar
         </button>
       </div>
@@ -198,7 +204,6 @@ export const ProductForm = ({ product, categories }: Props) => {
 
             {
               sizes?.map(size => (
-                // bg-blue-500 text-white <--- si está seleccionado
                 <div
                   key={size}
                   onClick={() => onSizeChanged(size)}
@@ -239,6 +244,7 @@ export const ProductForm = ({ product, categories }: Props) => {
                     className="rounded-t-lg"
                   />
                   <button
+                    onClick={() => deleteProductImage(image.id, image.url)}
                     type="button"
                     className="btn-danger w-full rounded-b-lg">
                     Eliminar
