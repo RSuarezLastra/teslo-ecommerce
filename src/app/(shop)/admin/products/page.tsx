@@ -22,7 +22,7 @@ export default async function ProductsPage({ searchParams }: Props) {
       <Title title="Productos" />
 
       <div className='flex justify-end mb-5'>
-        <Link href='/admin/products/new' className='btn-primary text-sm'>
+        <Link href='/admin/product/new' className='btn-primary text-sm'>
           Nuevo producto
         </Link>
       </div>
@@ -69,7 +69,7 @@ export default async function ProductsPage({ searchParams }: Props) {
                     </Link>
                   </td>
                   <td className="text-sm text-gray-900 p-4 whitespace-nowrap">
-                    <Link href={`/admin/products/${product.slug}`}
+                    <Link href={`/admin/product/${product.slug}`}
                       className='hover:underline'
                     >
                       {product.title}
