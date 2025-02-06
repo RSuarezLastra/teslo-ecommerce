@@ -1,9 +1,8 @@
 'use client'
 
+import Link from "next/link";
 import { useState } from "react";
 import { Product } from "@/interfaces"
-import Image from "next/image";
-import Link from "next/link";
 import { ProductImage } from "@/components";
 
 interface Props {

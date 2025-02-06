@@ -13,7 +13,7 @@ interface Props {
   }>
 }
 
-export default async function ({ params }: Props) {
+export default async function OrderPage({ params }: Props) {
 
   const { id } = await params;
 

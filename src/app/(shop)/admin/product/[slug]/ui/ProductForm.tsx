@@ -50,10 +50,13 @@ export const ProductForm = ({ product, categories }: Props) => {
   watch('sizes');
 
   const onSizeChanged = (size: string) => {
-
     const sizes = new Set(getValues('sizes'));
-
-    sizes.has(size) ? sizes.delete(size) : sizes.add(size);
+    
+    if (sizes.has(size)) {
+      sizes.delete(size);
+    } else {
+      sizes.add(size);
+    }
 
     setValue('sizes', Array.from(sizes));
   }
@@ -61,6 +64,7 @@ export const ProductForm = ({ product, categories }: Props) => {
 
   const onSubmit = async (data: FormInputs) => {
 
+    
     const formData = new FormData();
 
     const { ...productToSave } = data;
@@ -174,7 +178,12 @@ export const ProductForm = ({ product, categories }: Props) => {
 
         <button
           type="submit"
-          className="btn-primary w-full">
+          className={clsx("w-full",
+            {
+              'btn-primary': isValid,
+              'btn-disabled': !isValid
+            }
+          )}>
           Guardar
         </button>
       </div>

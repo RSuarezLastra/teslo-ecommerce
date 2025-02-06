@@ -3,6 +3,8 @@ import Credentials from 'next-auth/providers/credentials';
 import { z } from 'zod';
 import bcryptjs from 'bcryptjs';
 import prisma from './lib/prisma';
+import { AuthUser } from './interfaces';
+import { AdapterUser } from 'next-auth/adapters';
 
 const authenticatedRoutes = [
   '/checkout',
@@ -45,6 +47,7 @@ export const authConfig: NextAuthConfig = {
         if (!passwordMatch) return null;
 
         const { password: _, ...userWithoutPassword } = user;
+        void _;
 
         return userWithoutPassword;
       },
@@ -62,13 +65,15 @@ export const authConfig: NextAuthConfig = {
     },
     jwt: ({ token, user }) => {
       if (user) {
-        token.data = user;
+        token.user = user;
       }
 
       return token;
     },
-    session: ({ session, user, token }) => {
-      session.user = token.data as any;
+    session: ({ session, token }) => {
+
+      session.user = token.user as AdapterUser & AuthUser;
+
 
       return session;
     },

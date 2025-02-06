@@ -27,8 +27,11 @@ interface Props {
 }
 
 export const AddressForm = ({ countries, userStoreAddress = {} }: Props) => {
-  const { id, userId, ...restUserDb} = userStoreAddress;
+  const { id, userId, ...restUserDb } = userStoreAddress;
   
+  void id;
+  void userId;
+
   const router = useRouter();
 
   const { data: session } = useSession({

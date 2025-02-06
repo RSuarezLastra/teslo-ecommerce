@@ -1,6 +1,6 @@
 export const revalidate = 604800;
 
-import { Metadata, ResolvingMetadata } from "next";
+import { Metadata } from "next";
 import { notFound } from "next/navigation";
 import { getProductBySlug } from "@/actions";
 import { ProductMobileSlideShow, ProductSlideShow, StockLabel } from "@/components";
@@ -16,7 +16,6 @@ interface Props {
 
 export async function generateMetadata(
   { params }: Props,
-  parent: ResolvingMetadata
 ): Promise<Metadata> {
 
   const { slug } = await params;
@@ -36,7 +35,7 @@ export async function generateMetadata(
 }
 
 
-export default async function ({ params }: Props) {
+export default async function ProductPage({ params }: Props) {
 
   const { slug } = await params;
 

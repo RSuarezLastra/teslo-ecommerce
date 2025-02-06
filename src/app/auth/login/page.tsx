@@ -2,7 +2,7 @@ import { titleFont } from '@/config/fonts';
 import { LoginForm } from './components/LoginForm';
 
 
-export default function () {
+export default function LoginPage() {
   return (
     <div className="flex flex-col min-h-screen pt-32">
 

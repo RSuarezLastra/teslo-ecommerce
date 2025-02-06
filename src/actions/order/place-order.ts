@@ -132,10 +132,11 @@ export const placerOrder = async (productIds: ProductToOrder[], address: Address
       prismaTx
     }
 
-  } catch (error: any) {
+  } catch (error) {
+    console.log(error);
     return {
       ok: false,
-      message: error?.message
+      message: 'Error al procesar la orden'
     }
   }
 

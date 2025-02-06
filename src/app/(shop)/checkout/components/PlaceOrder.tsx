@@ -35,7 +35,7 @@ export const PlaceOrder = () => {
     const resp = await placerOrder(productsToOrder, address);
     if(!resp.ok){
       setIsPlacingOrder(false);
-      setErrorMessage(resp.message);
+      setErrorMessage(resp.message ?? '');
       return;
     }
     
@@ -88,7 +88,7 @@ export const PlaceOrder = () => {
         {/* Disclaimer */}
         <p className="mb-4">
           <span className="text-xs">
-            Al hacer click en "Generar orden", aceptas nuestros <a href="#" className="underline">términos y condiciones</a> y <a href="#">política de privacidad</a>
+            Al hacer click en &quot;Generar orden&quot;, aceptas nuestros <a href="#" className="underline">términos y condiciones</a> y <a href="#">política de privacidad</a>
           </span>
         </p>
 

@@ -5,7 +5,7 @@ import { OrderSummary } from "./components/OrderSummary";
 
 
 
-export default function () {
+export default function CartPage() {
 
 
   return (
