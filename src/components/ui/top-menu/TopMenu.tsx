@@ -39,15 +39,15 @@ export const TopMenu = () => {
       {/* Search, Cart, Menu  */}
       <div className="flex items-center">
 
-        <Link href="/search" className="mx-2">
+        <button className="mx-2">
           <IoSearchOutline className="w-5 h-5" />
-        </Link>
+        </button>
 
         <Link href={
           totalItemsInCart > 0 && loaded ?
             "/cart" :
-          "/empty"
-          } className="mx-4">
+            "/empty"
+        } className="mx-4">
           <div className="relative">
             {
               loaded && (totalItemsInCart > 0) && (
