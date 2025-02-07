@@ -1,11 +1,11 @@
 'use client';
 
 import Link from "next/link"
+import { useSearchParams } from "next/navigation";
 import { useActionState, useEffect } from 'react';
-import { authenticate } from "@/actions";
 import clsx from "clsx";
 import { BsExclamationCircle } from "react-icons/bs";
-import { useSearchParams } from "next/navigation";
+import { authenticate } from "@/actions";
 
 
 export const LoginForm = () => {

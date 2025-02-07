@@ -18,7 +18,7 @@ export default async function Layout({
   return (
     <main className="flex justify-center">
       
-      <div className="w-full sm:w-[350px]">
+      <div className="w-full px-5 sm:px-0 sm:w-[350px]">
         {children}
       </div>
       
