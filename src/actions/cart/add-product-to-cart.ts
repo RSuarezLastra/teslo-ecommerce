@@ -29,9 +29,31 @@ export const addProductToCart = async (userId: User['id'], cartProduct: CartProd
       })
     } else {
 
-      const cart = await getUserCart(userId);
+      const cart = await prisma.cart.findUnique({
+        where: { userId: userId },
+        include: {
+          CartProducts: true
+        }
+      });
 
-      
+      const isProductInCart = cart?.CartProducts.some((item) => (item.productId === cartProduct.id && item.size === cartProduct.size));
+
+      if (!isProductInCart) {
+        await prisma.cartProduct.create({
+          data: {
+            cartId: cart!.id,
+            size: cartProduct.size,
+            price: cartProduct.price,
+            quantity: cartProduct.quantity,
+            productId: cartProduct.id
+          }
+        });
+
+        return {
+          ok: true,
+          message: 'Producto agregado correctamente'
+        }
+      }
 
     }
 
