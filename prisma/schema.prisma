@@ -80,6 +80,7 @@ model User {
   image         String?
   address       UserAddress?
   Order         Order[]
+  Cart          Cart[]
 }
 
 model Country {
@@ -159,9 +160,11 @@ model OrderAddress {
 
 model Cart {
   id       String   @id @default(uuid())
+  userId   String
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
+  User        User          @relation(fields: [userId], references: [id])
   CartProduct CartProduct[]
 }
 
