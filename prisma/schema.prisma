@@ -165,7 +165,7 @@ model Cart {
   updateAt DateTime @updatedAt
 
   User        User          @relation(fields: [userId], references: [id])
-  CartProduct CartProduct[]
+  CartProducts CartProduct[]
 }
 
 model CartProduct {
