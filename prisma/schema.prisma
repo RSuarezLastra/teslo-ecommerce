@@ -160,7 +160,7 @@ model OrderAddress {
 
 model Cart {
   id       String   @id @default(uuid())
-  userId   String
+  userId   String   @unique
   createAt DateTime @default(now())
   updateAt DateTime @updatedAt
 
